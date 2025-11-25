@@ -24,6 +24,9 @@ public interface DestinoService {
     // RF10.4 - Inactivar destino
     void inactivar(Long id);
 
+    // Activar destino
+    void activar(Long id);
+
     // RF10.9 - Buscar por nombre
     List<DestinoDTO> buscarPorNombre(String nombre);
 

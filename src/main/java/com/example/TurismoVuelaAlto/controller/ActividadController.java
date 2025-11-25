@@ -28,7 +28,7 @@ public class ActividadController {
     // RF10.6 - Listar actividades
     @GetMapping
     public String listar(Model model) {
-        List<ActividadDTO> actividades = actividadService.listarActivas();
+        List<ActividadDTO> actividades = actividadService.listarTodas();
         model.addAttribute("actividades", actividades);
         return "actividades/lista";
     }
@@ -118,6 +118,20 @@ public class ActividadController {
             redirectAttributes.addFlashAttribute("error", e.getMessage());
         } catch (Exception e) {
             redirectAttributes.addFlashAttribute("error", "Error al inactivar la actividad: " + e.getMessage());
+        }
+        return "redirect:/actividades";
+    }
+
+    // Activar actividad
+    @GetMapping("/activar/{id}")
+    public String activar(@PathVariable Long id, RedirectAttributes redirectAttributes) {
+        try {
+            actividadService.activar(id);
+            redirectAttributes.addFlashAttribute("mensaje", "Actividad activada exitosamente");
+        } catch (ResourceNotFoundException e) {
+            redirectAttributes.addFlashAttribute("error", e.getMessage());
+        } catch (Exception e) {
+            redirectAttributes.addFlashAttribute("error", "Error al activar la actividad: " + e.getMessage());
         }
         return "redirect:/actividades";
     }

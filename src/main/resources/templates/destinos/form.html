@@ -14,6 +14,7 @@
               method="post">
             
             <input type="hidden" th:field="*{idDestino}">
+            <input type="hidden" th:field="*{estadoDestino}">
 
             <!-- Nombre -->
             <div class="mb-3">
@@ -36,6 +37,7 @@
             <!-- Botones -->
             <button type="submit" class="btn btn-success">Guardar</button>
             <a href="/destinos" class="btn btn-secondary">Cancelar</a>
+            <a href="/" class="btn btn-outline-secondary">Volver al Inicio</a>
         </form>
     </div>
 

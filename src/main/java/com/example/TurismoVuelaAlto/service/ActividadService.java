@@ -23,6 +23,9 @@ public interface ActividadService {
     // RF10.8 - Inactivar actividad
     void inactivar(Long id);
 
+    // Activar actividad
+    void activar(Long id);
+
     // Listar todas
     List<ActividadDTO> listarTodas();
 

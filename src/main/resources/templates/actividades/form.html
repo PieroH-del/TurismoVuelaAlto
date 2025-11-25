@@ -14,6 +14,7 @@
               method="post">
             
             <input type="hidden" th:field="*{idActividad}">
+            <input type="hidden" th:field="*{estado}">
 
             <!-- Nombre -->
             <div class="mb-3">
@@ -27,42 +28,43 @@
 
             <!-- Destino -->
             <div class="mb-3">
-                <label for="destino" class="form-label">Destino *</label>
+                <label for="idDestino" class="form-label">Destino *</label>
                 <select class="form-select" 
-                        th:field="*{destino.idDestino}"
-                        th:classappend="${#fields.hasErrors('destino')} ? 'is-invalid' : ''">
+                        th:field="*{idDestino}"
+                        th:classappend="${#fields.hasErrors('idDestino')} ? 'is-invalid' : ''">
                     <option value="">Seleccione un destino</option>
                     <option th:each="destino : ${destinos}" 
                             th:value="${destino.idDestino}" 
                             th:text="${destino.nombreDestino}"></option>
                 </select>
-                <div class="invalid-feedback" th:errors="*{destino}"></div>
+                <div class="invalid-feedback" th:errors="*{idDestino}"></div>
             </div>
 
             <!-- Precio -->
             <div class="mb-3">
-                <label for="precioActividad" class="form-label">Precio *</label>
+                <label for="precio" class="form-label">Precio *</label>
                 <input type="number" 
                        step="0.01"
                        class="form-control" 
-                       th:field="*{precioActividad}"
-                       th:classappend="${#fields.hasErrors('precioActividad')} ? 'is-invalid' : ''">
-                <div class="invalid-feedback" th:errors="*{precioActividad}"></div>
+                       th:field="*{precio}"
+                       th:classappend="${#fields.hasErrors('precio')} ? 'is-invalid' : ''">
+                <div class="invalid-feedback" th:errors="*{precio}"></div>
             </div>
 
             <!-- Duración -->
             <div class="mb-3">
-                <label for="duracionActividad" class="form-label">Duración (horas) *</label>
+                <label for="duracion" class="form-label">Duración (horas) *</label>
                 <input type="number" 
                        class="form-control" 
-                       th:field="*{duracionActividad}"
-                       th:classappend="${#fields.hasErrors('duracionActividad')} ? 'is-invalid' : ''">
-                <div class="invalid-feedback" th:errors="*{duracionActividad}"></div>
+                       th:field="*{duracion}"
+                       th:classappend="${#fields.hasErrors('duracion')} ? 'is-invalid' : ''">
+                <div class="invalid-feedback" th:errors="*{duracion}"></div>
             </div>
 
             <!-- Botones -->
             <button type="submit" class="btn btn-success">Guardar</button>
             <a href="/actividades" class="btn btn-secondary">Cancelar</a>
+            <a href="/" class="btn btn-outline-secondary">Volver al Inicio</a>
         </form>
     </div>
 

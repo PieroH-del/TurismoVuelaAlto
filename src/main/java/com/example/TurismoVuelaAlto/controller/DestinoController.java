@@ -25,7 +25,7 @@ public class DestinoController {
     // RF10.2 - Listar destinos
     @GetMapping
     public String listar(Model model) {
-        List<DestinoDTO> destinos = destinoService.listarActivos();
+        List<DestinoDTO> destinos = destinoService.listarTodos();
         model.addAttribute("destinos", destinos);
         return "destinos/lista";
     }
@@ -99,6 +99,20 @@ public class DestinoController {
             redirectAttributes.addFlashAttribute("error", e.getMessage());
         } catch (Exception e) {
             redirectAttributes.addFlashAttribute("error", "Error al inactivar el destino: " + e.getMessage());
+        }
+        return "redirect:/destinos";
+    }
+
+    // Activar destino
+    @GetMapping("/activar/{id}")
+    public String activar(@PathVariable Long id, RedirectAttributes redirectAttributes) {
+        try {
+            destinoService.activar(id);
+            redirectAttributes.addFlashAttribute("mensaje", "Destino activado exitosamente");
+        } catch (ResourceNotFoundException e) {
+            redirectAttributes.addFlashAttribute("error", e.getMessage());
+        } catch (Exception e) {
+            redirectAttributes.addFlashAttribute("error", "Error al activar el destino: " + e.getMessage());
         }
         return "redirect:/destinos";
     }

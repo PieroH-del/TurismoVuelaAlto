@@ -53,7 +53,18 @@ public class DestinoServiceImpl implements DestinoService {
             throw new ResourceNotFoundException("El ID del destino no puede ser nulo");
         }
 
+        // Verificar que el destino existe
+        destinoRepository.findById(destino.getIdDestino())
+                .orElseThrow(
+                        () -> new ResourceNotFoundException("Destino no encontrado con ID: " + destino.getIdDestino()));
+
         DestinoEntity entity = destinoMapper.toEntity(destino);
+
+        // Si el estado es nulo, mantenerlo como activo
+        if (entity.getEstadoDestino() == null) {
+            entity.setEstadoDestino("A");
+        }
+
         DestinoEntity updated = destinoRepository.save(entity);
         return destinoMapper.toDTO(updated);
     }
@@ -64,6 +75,15 @@ public class DestinoServiceImpl implements DestinoService {
                 .orElseThrow(() -> new ResourceNotFoundException("Destino no encontrado con ID: " + id));
 
         destino.setEstadoDestino("I");
+        destinoRepository.save(destino);
+    }
+
+    @Override
+    public void activar(Long id) {
+        DestinoEntity destino = destinoRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Destino no encontrado con ID: " + id));
+
+        destino.setEstadoDestino("A");
         destinoRepository.save(destino);
     }
 

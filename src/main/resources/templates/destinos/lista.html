@@ -18,6 +18,7 @@
         <!-- Botón nuevo destino -->
         <div class="mb-3">
             <a href="/destinos/nuevo" class="btn btn-primary">Nuevo Destino</a>
+            <a href="/" class="btn btn-outline-secondary">Volver al Inicio</a>
         </div>
 
         <!-- Formulario de búsqueda -->
@@ -33,6 +34,16 @@
             </div>
         </form>
 
+        <!-- Filtro de estado -->
+        <div class="mb-3">
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" id="mostrarInactivos">
+                <label class="form-check-label" for="mostrarInactivos">
+                    Mostrar inactivos
+                </label>
+            </div>
+        </div>
+
         <!-- Tabla de destinos -->
         <table class="table table-striped">
             <thead>
@@ -45,7 +56,7 @@
                 </tr>
             </thead>
             <tbody>
-                <tr th:each="destino : ${destinos}">
+                <tr th:each="destino : ${destinos}" th:attr="data-estado=${destino.estadoDestino}">
                     <td th:text="${destino.idDestino}"></td>
                     <td th:text="${destino.nombreDestino}"></td>
                     <td th:text="${destino.descripcionDestino}"></td>
@@ -54,11 +65,16 @@
                         <span th:if="${destino.estadoDestino == 'I'}" class="badge bg-secondary">Inactivo</span>
                     </td>
                     <td>
-                        <a th:href="@{/destinos/detalle/{id}(id=${destino.idDestino})}" class="btn btn-info btn-sm">Ver Detalle</a>
                         <a th:href="@{/destinos/editar/{id}(id=${destino.idDestino})}" class="btn btn-warning btn-sm">Editar</a>
-                        <a th:href="@{/destinos/inactivar/{id}(id=${destino.idDestino})}" 
+                        <a th:href="@{/destinos/detalle/{id}(id=${destino.idDestino})}" class="btn btn-info btn-sm">Ver Actividades</a>
+                        <a th:if="${destino.estadoDestino == 'A'}" 
+                           th:href="@{/destinos/inactivar/{id}(id=${destino.idDestino})}" 
                            class="btn btn-danger btn-sm"
                            onclick="return confirm('¿Está seguro de inactivar este destino?')">Inactivar</a>
+                        <a th:if="${destino.estadoDestino == 'I'}" 
+                           th:href="@{/destinos/activar/{id}(id=${destino.idDestino})}" 
+                           class="btn btn-success btn-sm"
+                           onclick="return confirm('¿Está seguro de activar este destino?')">Activar</a>
                     </td>
                 </tr>
             </tbody>
@@ -66,5 +82,27 @@
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const checkbox = document.getElementById('mostrarInactivos');
+            const filas = document.querySelectorAll('tbody tr');
+            
+            // Ocultar inactivos al cargar
+            filas.forEach(fila => {
+                if (fila.getAttribute('data-estado') === 'I') {
+                    fila.style.display = 'none';
+                }
+            });
+            
+            // Filtrar al cambiar checkbox
+            checkbox.addEventListener('change', function() {
+                filas.forEach(fila => {
+                    if (fila.getAttribute('data-estado') === 'I') {
+                        fila.style.display = this.checked ? '' : 'none';
+                    }
+                });
+            });
+        });
+    </script>
 </body>
 </html>

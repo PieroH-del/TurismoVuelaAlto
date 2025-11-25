@@ -65,6 +65,11 @@ public class ActividadServiceImpl implements ActividadService {
             throw new ResourceNotFoundException("El ID de la actividad no puede ser nulo");
         }
 
+        // Verificar que la actividad existe
+        actividadRepository.findById(actividad.getIdActividad())
+                .orElseThrow(() -> new ResourceNotFoundException(
+                        "Actividad no encontrada con ID: " + actividad.getIdActividad()));
+
         ActividadEntity entity = actividadMapper.toEntity(actividad);
 
         // Asignar el destino
@@ -72,6 +77,11 @@ public class ActividadServiceImpl implements ActividadService {
                 .orElseThrow(() -> new ResourceNotFoundException(
                         "Destino no encontrado con ID: " + actividad.getIdDestino()));
         entity.setDestino(destino);
+
+        // Si el estado es nulo, mantenerlo como activo
+        if (entity.getEstadoActividad() == null) {
+            entity.setEstadoActividad("A");
+        }
 
         ActividadEntity updated = actividadRepository.save(entity);
         return actividadMapper.toDTO(updated);
@@ -83,6 +93,15 @@ public class ActividadServiceImpl implements ActividadService {
                 .orElseThrow(() -> new ResourceNotFoundException("Actividad no encontrada con ID: " + id));
 
         actividad.setEstadoActividad("I");
+        actividadRepository.save(actividad);
+    }
+
+    @Override
+    public void activar(Long id) {
+        ActividadEntity actividad = actividadRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Actividad no encontrada con ID: " + id));
+
+        actividad.setEstadoActividad("A");
         actividadRepository.save(actividad);
     }
 
