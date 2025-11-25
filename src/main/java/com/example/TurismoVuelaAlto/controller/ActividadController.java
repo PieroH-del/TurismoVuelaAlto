@@ -1,6 +1,7 @@
 package com.example.TurismoVuelaAlto.controller;
 
-import com.example.TurismoVuelaAlto.entity.ActividadEntity;
+import com.example.TurismoVuelaAlto.dto.ActividadDTO;
+import com.example.TurismoVuelaAlto.exception.ResourceNotFoundException;
 import com.example.TurismoVuelaAlto.service.ActividadService;
 import com.example.TurismoVuelaAlto.service.DestinoService;
 import jakarta.validation.Valid;
@@ -27,7 +28,7 @@ public class ActividadController {
     // RF10.6 - Listar actividades
     @GetMapping
     public String listar(Model model) {
-        List<ActividadEntity> actividades = actividadService.listarActivas();
+        List<ActividadDTO> actividades = actividadService.listarActivas();
         model.addAttribute("actividades", actividades);
         return "actividades/lista";
     }
@@ -35,14 +36,14 @@ public class ActividadController {
     // RF10.5 - Mostrar formulario para registrar
     @GetMapping("/nuevo")
     public String mostrarFormulario(Model model) {
-        model.addAttribute("actividad", new ActividadEntity());
+        model.addAttribute("actividad", new ActividadDTO());
         model.addAttribute("destinos", destinoService.listarActivos());
         return "actividades/form";
     }
 
     // RF10.5 - Guardar actividad
     @PostMapping("/guardar")
-    public String guardar(@Valid @ModelAttribute("actividad") ActividadEntity actividad,
+    public String guardar(@Valid @ModelAttribute("actividad") ActividadDTO actividad,
             BindingResult result,
             Model model,
             RedirectAttributes redirectAttributes) {
@@ -50,26 +51,41 @@ public class ActividadController {
             model.addAttribute("destinos", destinoService.listarActivos());
             return "actividades/form";
         }
-        actividadService.guardar(actividad);
-        redirectAttributes.addFlashAttribute("mensaje", "Actividad registrada exitosamente");
+        try {
+            actividadService.guardar(actividad);
+            redirectAttributes.addFlashAttribute("mensaje", "Actividad registrada exitosamente");
+        } catch (ResourceNotFoundException e) {
+            model.addAttribute("destinos", destinoService.listarActivos());
+            model.addAttribute("error", e.getMessage());
+            return "actividades/form";
+        } catch (Exception e) {
+            model.addAttribute("destinos", destinoService.listarActivos());
+            model.addAttribute("error", "Error al guardar la actividad: " + e.getMessage());
+            return "actividades/form";
+        }
         return "redirect:/actividades";
     }
 
     // RF10.7 - Mostrar formulario para editar
     @GetMapping("/editar/{id}")
-    public String mostrarFormularioEditar(@PathVariable Long id, Model model) {
-        Optional<ActividadEntity> actividad = actividadService.buscarPorId(id);
-        if (actividad.isPresent()) {
-            model.addAttribute("actividad", actividad.get());
-            model.addAttribute("destinos", destinoService.listarActivos());
-            return "actividades/form";
+    public String mostrarFormularioEditar(@PathVariable Long id, Model model, RedirectAttributes redirectAttributes) {
+        try {
+            Optional<ActividadDTO> actividad = actividadService.buscarPorId(id);
+            if (actividad.isPresent()) {
+                model.addAttribute("actividad", actividad.get());
+                model.addAttribute("destinos", destinoService.listarActivos());
+                return "actividades/form";
+            }
+            redirectAttributes.addFlashAttribute("error", "Actividad no encontrada");
+        } catch (Exception e) {
+            redirectAttributes.addFlashAttribute("error", "Error al buscar la actividad: " + e.getMessage());
         }
         return "redirect:/actividades";
     }
 
     // RF10.7 - Actualizar actividad
     @PostMapping("/actualizar")
-    public String actualizar(@Valid @ModelAttribute("actividad") ActividadEntity actividad,
+    public String actualizar(@Valid @ModelAttribute("actividad") ActividadDTO actividad,
             BindingResult result,
             Model model,
             RedirectAttributes redirectAttributes) {
@@ -77,23 +93,39 @@ public class ActividadController {
             model.addAttribute("destinos", destinoService.listarActivos());
             return "actividades/form";
         }
-        actividadService.actualizar(actividad);
-        redirectAttributes.addFlashAttribute("mensaje", "Actividad actualizada exitosamente");
+        try {
+            actividadService.actualizar(actividad);
+            redirectAttributes.addFlashAttribute("mensaje", "Actividad actualizada exitosamente");
+        } catch (ResourceNotFoundException e) {
+            model.addAttribute("destinos", destinoService.listarActivos());
+            model.addAttribute("error", e.getMessage());
+            return "actividades/form";
+        } catch (Exception e) {
+            model.addAttribute("destinos", destinoService.listarActivos());
+            model.addAttribute("error", "Error al actualizar la actividad: " + e.getMessage());
+            return "actividades/form";
+        }
         return "redirect:/actividades";
     }
 
     // RF10.8 - Inactivar actividad
     @GetMapping("/inactivar/{id}")
     public String inactivar(@PathVariable Long id, RedirectAttributes redirectAttributes) {
-        actividadService.inactivar(id);
-        redirectAttributes.addFlashAttribute("mensaje", "Actividad inactivada exitosamente");
+        try {
+            actividadService.inactivar(id);
+            redirectAttributes.addFlashAttribute("mensaje", "Actividad inactivada exitosamente");
+        } catch (ResourceNotFoundException e) {
+            redirectAttributes.addFlashAttribute("error", e.getMessage());
+        } catch (Exception e) {
+            redirectAttributes.addFlashAttribute("error", "Error al inactivar la actividad: " + e.getMessage());
+        }
         return "redirect:/actividades";
     }
 
     // RF10.6 - Listar actividades por destino
     @GetMapping("/destino/{idDestino}")
     public String listarPorDestino(@PathVariable Long idDestino, Model model) {
-        List<ActividadEntity> actividades = actividadService.listarActivasPorDestino(idDestino);
+        List<ActividadDTO> actividades = actividadService.listarActivasPorDestino(idDestino);
         model.addAttribute("actividades", actividades);
         return "actividades/lista";
     }

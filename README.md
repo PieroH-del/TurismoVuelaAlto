@@ -31,6 +31,8 @@ Turismo Vuela Alto es una aplicación web que implementa un sistema completo de 
 - **Hibernate 7.1.8** - ORM
 - **Bean Validation** - Validaciones
 - **MySQL Connector/J** - Driver de base de datos
+- **MapStruct 1.5.5** - Mapeo automático entre DTOs y Entidades
+- **Exception Handling** - Manejo global de errores
 
 ### Frontend
 - **Thymeleaf 3.1.3** - Motor de plantillas
@@ -71,7 +73,7 @@ Antes de ejecutar el proyecto, asegúrate de tener instalado:
 ### 1. Clonar el repositorio
 
 ```bash
-git clone https://github.com/TU_USUARIO/TurismoVuelaAlto.git
+git clone https://github.com/PieroH-del/TurismoVuelaAlto.git
 cd TurismoVuelaAlto
 ```
 
@@ -80,7 +82,7 @@ cd TurismoVuelaAlto
 Crear la base de datos en MySQL:
 
 ```sql
-CREATE DATABASE turismo_db CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+create database AgenciaVuelaAlto;
 ```
 
 ### 3. Configurar credenciales
@@ -90,7 +92,7 @@ Editar `src/main/resources/application.properties`:
 ```properties
 spring.datasource.url=jdbc:mysql://localhost:3306/turismo_db?useSSL=false&serverTimezone=UTC
 spring.datasource.username=root
-spring.datasource.password=TU_PASSWORD_MYSQL
+spring.datasource.password=123456
 ```
 
 ### 4. Compilar el proyecto
@@ -129,9 +131,15 @@ TurismoVuelaAlto/
 │   │   │       │   ├── HomeController.java
 │   │   │       │   ├── DestinoController.java
 │   │   │       │   └── ActividadController.java
+│   │   │       ├── dto/                 # Data Transfer Objects
+│   │   │       │   ├── DestinoDTO.java
+│   │   │       │   └── ActividadDTO.java
 │   │   │       ├── entity/              # Entidades JPA
 │   │   │       │   ├── DestinoEntity.java
 │   │   │       │   └── ActividadEntity.java
+│   │   │       ├── mapper/              # MapStruct Mappers
+│   │   │       │   ├── DestinoMapper.java
+│   │   │       │   └── ActividadMapper.java
 │   │   │       ├── repository/          # Repositorios
 │   │   │       │   ├── DestinoRepository.java
 │   │   │       │   └── ActividadRepository.java
@@ -141,6 +149,10 @@ TurismoVuelaAlto/
 │   │   │       │   └── impl/
 │   │   │       │       ├── DestinoServiceImpl.java
 │   │   │       │       └── ActividadServiceImpl.java
+│   │   │       ├── exception/           # Manejo de errores
+│   │   │       │   ├── ErrorResponse.java
+│   │   │       │   ├── GlobalExceptionHandler.java
+│   │   │       │   └── ResourceNotFoundException.java
 │   │   │       └── TurismoVuelaAltoApplication.java
 │   │   └── resources/
 │   │       ├── application.properties   # Configuración
@@ -201,11 +213,19 @@ TurismoVuelaAlto/
 - **Editar actividad** - Modificar precio, duración, etc.
 - **Inactivar actividad** - Soft delete
 
+### Características Técnicas
+- ✅ **DTOs (Data Transfer Objects)** - Separación entre capa de presentación y persistencia
+- ✅ **MapStruct** - Mapeo automático entre DTOs y Entidades
+- ✅ **Exception Handling** - Manejo global de errores con @RestControllerAdvice
+- ✅ **ResourceNotFoundException** - Excepción personalizada para recursos no encontrados
+- ✅ **ErrorResponse** - Respuestas de error estandarizadas con timestamp y detalles
+
 ### Validaciones Implementadas
 - ✅ Campos obligatorios (nombre)
 - ✅ Valores numéricos positivos (precio > 0, duración > 0)
 - ✅ Formato de estado (solo 'A' o 'I')
 - ✅ Relación obligatoria (actividad debe tener destino)
+- ✅ Validación de existencia de recursos antes de operaciones
 
 ---
 
@@ -252,24 +272,6 @@ mvn test
 - `GET /actividades/editar/{id}` - Formulario edición
 - `POST /actividades/actualizar` - Actualizar actividad
 - `GET /actividades/inactivar/{id}` - Inactivar actividad
-
----
-
-## 🤝 Contribuciones
-
-Las contribuciones son bienvenidas. Para cambios importantes:
-
-1. Fork el proyecto
-2. Crea una rama (`git checkout -b feature/nueva-funcionalidad`)
-3. Commit tus cambios (`git commit -m 'Agregar nueva funcionalidad'`)
-4. Push a la rama (`git push origin feature/nueva-funcionalidad`)
-5. Abre un Pull Request
-
----
-
-## 📄 Licencia
-
-Este proyecto es de uso académico para la asignatura de Servicios de desarrollo web
 
 ---
 

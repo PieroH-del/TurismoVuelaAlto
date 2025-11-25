@@ -1,6 +1,6 @@
 package com.example.TurismoVuelaAlto.service;
 
-import com.example.TurismoVuelaAlto.entity.ActividadEntity;
+import com.example.TurismoVuelaAlto.dto.ActividadDTO;
 
 import java.util.List;
 import java.util.Optional;
@@ -8,24 +8,24 @@ import java.util.Optional;
 public interface ActividadService {
 
     // RF10.5 - Registrar actividad
-    ActividadEntity guardar(ActividadEntity actividad);
+    ActividadDTO guardar(ActividadDTO actividad);
 
     // RF10.6 - Listar actividades por destino
-    List<ActividadEntity> listarPorDestino(Long idDestino);
+    List<ActividadDTO> listarPorDestino(Long idDestino);
 
-    List<ActividadEntity> listarActivasPorDestino(Long idDestino);
+    List<ActividadDTO> listarActivasPorDestino(Long idDestino);
 
     // RF10.7 - Editar actividad
-    Optional<ActividadEntity> buscarPorId(Long id);
+    Optional<ActividadDTO> buscarPorId(Long id);
 
-    ActividadEntity actualizar(ActividadEntity actividad);
+    ActividadDTO actualizar(ActividadDTO actividad);
 
     // RF10.8 - Inactivar actividad
     void inactivar(Long id);
 
     // Listar todas
-    List<ActividadEntity> listarTodas();
+    List<ActividadDTO> listarTodas();
 
-    List<ActividadEntity> listarActivas();
+    List<ActividadDTO> listarActivas();
 
 }
