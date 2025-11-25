@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Lista de Actividades</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container mt-4">
+        <h1>Gestión de Actividades</h1>
+
+        <!-- Mensaje de éxito -->
+        <div th:if="${mensaje}" class="alert alert-success alert-dismissible fade show" role="alert">
+            <span th:text="${mensaje}"></span>
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        </div>
+
+        <!-- Botón nueva actividad -->
+        <div class="mb-3">
+            <a href="/actividades/nuevo" class="btn btn-primary">Nueva Actividad</a>
+            <a href="/destinos" class="btn btn-outline-secondary">Ver Destinos</a>
+        </div>
+
+        <!-- Tabla de actividades -->
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nombre</th>
+                    <th>Destino</th>
+                    <th>Precio</th>
+                    <th>Duración (hrs)</th>
+                    <th>Estado</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="actividad : ${actividades}">
+                    <td th:text="${actividad.idActividad}"></td>
+                    <td th:text="${actividad.nombreActividad}"></td>
+                    <td th:text="${actividad.destino.nombreDestino}"></td>
+                    <td>$<span th:text="${actividad.precioActividad}"></span></td>
+                    <td th:text="${actividad.duracionActividad}"></td>
+                    <td>
+                        <span th:if="${actividad.estadoActividad == 'A'}" class="badge bg-success">Activa</span>
+                        <span th:if="${actividad.estadoActividad == 'I'}" class="badge bg-secondary">Inactiva</span>
+                    </td>
+                    <td>
+                        <a th:href="@{/actividades/editar/{id}(id=${actividad.idActividad})}" class="btn btn-warning btn-sm">Editar</a>
+                        <a th:href="@{/actividades/inactivar/{id}(id=${actividad.idActividad})}" 
+                           class="btn btn-danger btn-sm"
+                           onclick="return confirm('¿Está seguro de inactivar esta actividad?')">Inactivar</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
