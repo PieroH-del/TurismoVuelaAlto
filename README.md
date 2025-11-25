@@ -269,24 +269,13 @@ Las contribuciones son bienvenidas. Para cambios importantes:
 
 ## 📄 Licencia
 
-Este proyecto es de uso académico para la asignatura de Programación Web Avanzada.
+Este proyecto es de uso académico para la asignatura de Servicios de desarrollo web
 
 ---
 
 ## ✍️ Autor
 
-**[TU NOMBRE]**
-- GitHub: [@TU_USUARIO](https://github.com/TU_USUARIO)
-- Email: tu.email@example.com
+**Piero Leon**
+- GitHub: PieroH-del (https://github.com/PieroH-del)
 
----
 
-## 📞 Soporte
-
-Si tienes problemas o preguntas:
-- Abre un [Issue](https://github.com/TU_USUARIO/TurismoVuelaAlto/issues)
-- Contacta al desarrollador
-
----
-
-**Desarrollado con ❤️ usando Spring Boot**
