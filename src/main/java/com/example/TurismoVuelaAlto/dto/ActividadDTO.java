@@ -31,7 +31,7 @@ public class ActividadDTO {
     private String estado;
 
     private Integer idDestino;
-    private String nombreDestino; // Para mostrar el nombre del destino
+    private String nombreDestino;
 
     // Constructor vacío
     public ActividadDTO() {
