@@ -2,39 +2,75 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Sistema Turismo Vuela Alto</title>
+    <title>Vuela Alto - Turismo</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
 </head>
 <body>
-    <div class="container mt-5">
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-light sticky-top">
+        <div class="container">
+            <a class="navbar-brand" href="/">Vuela Alto</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navMenu">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="/">Inicio</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/destinos">Destinos</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/actividades">Actividades</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="hero-section">
+        <div class="container">
+            <h1 class="hero-title">Explora el Mundo con Nosotros</h1>
+            <p class="hero-subtitle">Descubre destinos inolvidables y vive experiencias únicas.</p>
+            <a href="/destinos" class="btn-hero">Ver Destinos</a>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container page-container">
         <div class="text-center">
-            <h1>Sistema de Gestión Turística</h1>
-            <h2 class="text-muted">Vuela Alto</h2>
-            <hr>
+            <h2 class="section-title">Nuestros Servicios</h2>
         </div>
-
-        <div class="row mt-5">
+        
+        <div class="row mt-4 g-4">
             <div class="col-md-6">
-                <div class="card">
-                    <div class="card-body text-center">
-                        <h3 class="card-title">Gestión de Destinos</h3>
-                        <p class="card-text">Administra los destinos turísticos disponibles</p>
-                        <a href="/destinos" class="btn btn-primary btn-lg">Ir a Destinos</a>
+                <div class="card-custom">
+                    <div class="card-body-custom">
+                        <div class="card-icon"><i class="bi bi-geo-alt"></i></div>
+                        <h3 class="card-title-custom">Destinos Exóticos</h3>
+                        <p class="text-muted">Encuentra los lugares más hermosos para tus próximas vacaciones. Gestionamos una amplia variedad de destinos.</p>
+                        <a href="/destinos" class="btn btn-outline-dark mt-3">Explorar Destinos</a>
                     </div>
                 </div>
             </div>
 
             <div class="col-md-6">
-                <div class="card">
-                    <div class="card-body text-center">
-                        <h3 class="card-title">Gestión de Actividades</h3>
-                        <p class="card-text">Administra las actividades por destino</p>
-                        <a href="/actividades" class="btn btn-success btn-lg">Ir a Actividades</a>
+                <div class="card-custom">
+                    <div class="card-body-custom">
+                        <div class="card-icon"><i class="bi bi-activity"></i></div>
+                        <h3 class="card-title-custom">Actividades Únicas</h3>
+                        <p class="text-muted">Desde aventuras extremas hasta paseos relajantes. Tenemos actividades para todos los gustos.</p>
+                        <a href="/actividades" class="btn btn-outline-dark mt-3">Ver Actividades</a>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p class="mb-0">&copy; 2025 Vuela Alto. Todos los derechos reservados.</p>
+        </div>
+    </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>

@@ -60,7 +60,7 @@ Desarrollar un sistema web de gestión turística que permita administrar destin
 
 ---
 
-## 4. MODELO DE DATOS
+## 4. MODELO DE DATOS 
 
 ### 4.1 Diagrama Entidad-Relación
 

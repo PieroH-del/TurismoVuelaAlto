@@ -2,97 +2,109 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Lista de Actividades</title>
+    <title>Actividades - Vuela Alto</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
 </head>
 <body>
-    <div class="container mt-4">
-        <h1>Gestión de Actividades</h1>
+    <nav class="navbar navbar-expand-lg navbar-light sticky-top">
+        <div class="container">
+            <a class="navbar-brand" href="/">Vuela Alto</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navMenu">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="/">Inicio</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/destinos">Destinos</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/actividades">Actividades</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
 
-        <!-- Mensaje de éxito -->
+    <main class="container page-container">
+        <div class="text-center mb-4">
+            <h2 class="section-title">Actividades Disponibles</h2>
+            <p class="text-muted">Descubre experiencias únicas para cada destino</p>
+        </div>
+
         <div th:if="${mensaje}" class="alert alert-success alert-dismissible fade show" role="alert">
             <span th:text="${mensaje}"></span>
             <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
         </div>
 
-        <!-- Botón nueva actividad -->
-        <div class="mb-3">
-            <a href="/actividades/nuevo" class="btn btn-primary">Nueva Actividad</a>
-            <a href="/destinos" class="btn btn-outline-secondary">Ver Destinos</a>
-            <a href="/" class="btn btn-outline-secondary">Volver al Inicio</a>
-        </div>
-
-        <!-- Filtro de estado -->
-        <div class="mb-3">
-            <div class="form-check">
-                <input class="form-check-input" type="checkbox" id="mostrarInactivos">
-                <label class="form-check-label" for="mostrarInactivos">
-                    Mostrar inactivos
-                </label>
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <a href="/actividades/nuevo" class="btn-hero"><i class="bi bi-plus-lg me-2"></i>Nueva Actividad</a>
+            <div class="d-flex align-items-center gap-3">
+                <div class="input-group" style="width: 300px;">
+                    <input type="text" id="buscar" class="form-control" placeholder="Buscar actividad...">
+                    <button class="btn btn-outline-dark" type="button" onclick="document.getElementById('buscar').value='';">
+                        <i class="bi bi-x"></i>
+                    </button>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="mostrarInactivos">
+                    <label class="form-check-label" for="mostrarInactivos">Mostrar inactivos</label>
+                </div>
             </div>
         </div>
 
-        <!-- Tabla de actividades -->
-        <table class="table table-striped">
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Nombre</th>
-                    <th>Destino</th>
-                    <th>Precio</th>
-                    <th>Duración (hrs)</th>
-                    <th>Estado</th>
-                    <th>Acciones</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr th:each="actividad : ${actividades}" th:attr="data-estado=${actividad.estado}">
-                    <td th:text="${actividad.idActividad}"></td>
-                    <td th:text="${actividad.nombreActividad}"></td>
-                    <td th:text="${actividad.nombreDestino}"></td>
-                    <td>$<span th:text="${actividad.precio}"></span></td>
-                    <td th:text="${actividad.duracion}"></td>
-                    <td>
-                        <span th:if="${actividad.estado == 'A'}" class="badge bg-success">Activa</span>
-                        <span th:if="${actividad.estado == 'I'}" class="badge bg-secondary">Inactiva</span>
-                    </td>
-                    <td>
-                        <a th:href="@{/actividades/editar/{id}(id=${actividad.idActividad})}" class="btn btn-warning btn-sm">Editar</a>
-                        <a th:if="${actividad.estado == 'A'}" 
-                           th:href="@{/actividades/inactivar/{id}(id=${actividad.idActividad})}" 
-                           class="btn btn-danger btn-sm"
-                           onclick="return confirm('¿Está seguro de inactivar esta actividad?')">Inactivar</a>
-                        <a th:if="${actividad.estado == 'I'}" 
-                           th:href="@{/actividades/activar/{id}(id=${actividad.idActividad})}" 
-                           class="btn btn-success btn-sm"
-                           onclick="return confirm('¿Está seguro de activar esta actividad?')">Activar</a>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
+        <div class="card-custom">
+            <div class="card-body" style="padding: 2rem;">
+
+            <div class="table-responsive">
+                <table class="table table-custom align-middle">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Actividad</th>
+                            <th>Destino</th>
+                            <th>Precio</th>
+                            <th>Duración</th>
+                            <th>Estado</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="actividad : ${actividades}" th:attr="data-estado=${actividad.estado}">
+                            <td th:text="${actividad.idActividad}"></td>
+                            <td><strong th:text="${actividad.nombreActividad}"></strong></td>
+                            <td th:text="${actividad.nombreDestino}"></td>
+                            <td><strong>$<span th:text="${actividad.precio}"></span></strong></td>
+                            <td th:text="${actividad.duracion} + ' hrs'"></td>
+                            <td>
+                                <span th:if="${actividad.estado == 'A'}" class="badge badge-active">Activa</span>
+                                <span th:if="${actividad.estado == 'I'}" class="badge badge-inactive">Inactiva</span>
+                            </td>
+                            <td>
+                                <a th:href="@{/actividades/editar/{id}(id=${actividad.idActividad})}" class="btn btn-sm btn-outline-dark me-1" title="Editar"><i class="bi bi-pencil-fill"></i></a>
+                                <a th:if="${actividad.estado == 'A'}" th:href="@{/actividades/inactivar/{id}(id=${actividad.idActividad})}" class="btn btn-sm btn-outline-danger" title="Inactivar" onclick="return confirm('¿Está seguro de inactivar esta actividad?')"><i class="bi bi-x-circle"></i></a>
+                                <a th:if="${actividad.estado == 'I'}" th:href="@{/actividades/activar/{id}(id=${actividad.idActividad})}" class="btn btn-sm btn-outline-success" title="Activar" onclick="return confirm('¿Está seguro de activar esta actividad?')"><i class="bi bi-check-circle"></i></a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            </div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p class="mb-0">&copy; 2025 Vuela Alto. Todos los derechos reservados.</p>
+        </div>
+    </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             const checkbox = document.getElementById('mostrarInactivos');
             const filas = document.querySelectorAll('tbody tr');
-            
-            // Ocultar inactivos al cargar
-            filas.forEach(fila => {
-                if (fila.getAttribute('data-estado') === 'I') {
-                    fila.style.display = 'none';
-                }
-            });
-            
-            // Filtrar al cambiar checkbox
-            checkbox.addEventListener('change', function() {
-                filas.forEach(fila => {
-                    if (fila.getAttribute('data-estado') === 'I') {
-                        fila.style.display = this.checked ? '' : 'none';
-                    }
-                });
-            });
+            filas.forEach(fila => { if (fila.getAttribute('data-estado') === 'I') fila.style.display = 'none'; });
+            checkbox.addEventListener('change', function() { filas.forEach(fila => { if (fila.getAttribute('data-estado') === 'I') fila.style.display = this.checked ? '' : 'none'; }); });
         });
     </script>
 </body>
