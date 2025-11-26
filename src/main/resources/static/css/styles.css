@@ -54,7 +54,7 @@ h1, h2, h3, h4, h5, h6, .navbar-brand {
     color: var(--secondary-color) !important;
 }
 
-/* Hero Section (Index) */
+/* Index */
 .hero-section {
     background-color: var(--primary-color);
     color: #fff;
@@ -113,7 +113,7 @@ h1, h2, h3, h4, h5, h6, .navbar-brand {
     color: #fff;
 }
 
-/* Cards */
+/* tarjetas */
 .card-custom {
     border: none;
     border-radius: 8px;
@@ -146,7 +146,7 @@ h1, h2, h3, h4, h5, h6, .navbar-brand {
     color: var(--primary-color);
 }
 
-/* Tables */
+/* Tablas */
 .table-custom thead {
     background-color: var(--primary-color);
     color: #fff;
@@ -185,7 +185,7 @@ footer a:hover {
     text-decoration: underline;
 }
 
-/* Utilities */
+/* Utilidades */
 .section-title {
     text-align: center;
     margin-bottom: 3rem;
