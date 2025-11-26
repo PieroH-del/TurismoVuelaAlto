@@ -7,26 +7,26 @@ import java.util.Optional;
 
 public interface ActividadService {
 
-    // RF10.5 - Registrar actividad
+    //Registrar actividad
     ActividadDTO guardar(ActividadDTO actividad);
 
-    // RF10.6 - Listar actividades por destino
+    //Listar actividades por destino
     List<ActividadDTO> listarPorDestino(Long idDestino);
 
     List<ActividadDTO> listarActivasPorDestino(Long idDestino);
 
-    // RF10.7 - Editar actividad
+    //Editar actividad
     Optional<ActividadDTO> buscarPorId(Long id);
 
     ActividadDTO actualizar(ActividadDTO actividad);
 
-    // RF10.8 - Inactivar actividad
+    //Inactivar actividad
     void inactivar(Long id);
 
-    // Activar actividad
+    //Activar actividad
     void activar(Long id);
 
-    // Listar todas
+    //Listar todas
     List<ActividadDTO> listarTodas();
 
     List<ActividadDTO> listarActivas();

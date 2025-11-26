@@ -8,29 +8,29 @@ import java.util.Optional;
 
 public interface DestinoService {
 
-    // RF10.1 - Registrar destino
+    //Registrar destino
     DestinoDTO guardar(DestinoDTO destino);
 
-    // RF10.2 - Listar destinos
+    //Listar destinos
     List<DestinoDTO> listarTodos();
 
     List<DestinoDTO> listarActivos();
 
-    // RF10.3 - Editar destino
+    //Editar destino
     Optional<DestinoDTO> buscarPorId(Long id);
 
     DestinoDTO actualizar(DestinoDTO destino);
 
-    // RF10.4 - Inactivar destino
+    //Inactivar destino
     void inactivar(Long id);
 
-    // Activar destino
+    //Activar destino
     void activar(Long id);
 
-    // RF10.9 - Buscar por nombre
+    //Buscar por nombre
     List<DestinoDTO> buscarPorNombre(String nombre);
 
-    // RF10.10 - Detalle con actividades (mantener Entity para la vista)
+    //Detalle con actividades (mantener Entity para la vista)
     Optional<DestinoEntity> obtenerConActividades(Long id);
 
 }
