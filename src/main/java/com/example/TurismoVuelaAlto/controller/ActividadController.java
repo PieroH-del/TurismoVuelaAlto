@@ -25,7 +25,7 @@ public class ActividadController {
     @Autowired
     private DestinoService destinoService;
 
-    // RF10.6 - Listar actividades
+    // Listar actividades
     @GetMapping
     public String listar(Model model) {
         List<ActividadDTO> actividades = actividadService.listarTodas();
@@ -33,7 +33,7 @@ public class ActividadController {
         return "actividades/lista";
     }
 
-    // RF10.5 - Mostrar formulario para registrar
+    // Mostrar formulario para registrar
     @GetMapping("/nuevo")
     public String mostrarFormulario(Model model) {
         model.addAttribute("actividad", new ActividadDTO());
@@ -41,7 +41,7 @@ public class ActividadController {
         return "actividades/form";
     }
 
-    // RF10.5 - Guardar actividad
+    // Guardar actividad
     @PostMapping("/guardar")
     public String guardar(@Valid @ModelAttribute("actividad") ActividadDTO actividad,
             BindingResult result,
@@ -66,7 +66,7 @@ public class ActividadController {
         return "redirect:/actividades";
     }
 
-    // RF10.7 - Mostrar formulario para editar
+    // Mostrar formulario para editar
     @GetMapping("/editar/{id}")
     public String mostrarFormularioEditar(@PathVariable Long id, Model model, RedirectAttributes redirectAttributes) {
         try {
@@ -83,7 +83,7 @@ public class ActividadController {
         return "redirect:/actividades";
     }
 
-    // RF10.7 - Actualizar actividad
+    // Actualizar actividad
     @PostMapping("/actualizar")
     public String actualizar(@Valid @ModelAttribute("actividad") ActividadDTO actividad,
             BindingResult result,
@@ -108,7 +108,7 @@ public class ActividadController {
         return "redirect:/actividades";
     }
 
-    // RF10.8 - Inactivar actividad
+    // Inactivar actividad
     @GetMapping("/inactivar/{id}")
     public String inactivar(@PathVariable Long id, RedirectAttributes redirectAttributes) {
         try {
@@ -136,7 +136,7 @@ public class ActividadController {
         return "redirect:/actividades";
     }
 
-    // RF10.6 - Listar actividades por destino
+    // Listar actividades por destino
     @GetMapping("/destino/{idDestino}")
     public String listarPorDestino(@PathVariable Long idDestino, Model model) {
         List<ActividadDTO> actividades = actividadService.listarActivasPorDestino(idDestino);

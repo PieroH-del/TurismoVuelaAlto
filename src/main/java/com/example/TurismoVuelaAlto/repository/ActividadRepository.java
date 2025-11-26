@@ -9,10 +9,10 @@ import java.util.List;
 @Repository
 public interface ActividadRepository extends JpaRepository<ActividadEntity, Long> {
 
-    // RF10.6 - Listar actividades por destino
+    // Listar actividades por destino
     List<ActividadEntity> findByDestino_IdDestino(Long idDestino);
 
-    // RF10.6 - Listar actividades activas por destino
+    // Listar actividades activas por destino
     List<ActividadEntity> findByDestino_IdDestinoAndEstadoActividad(Long idDestino, String estadoActividad);
 
     // Listar actividades activas

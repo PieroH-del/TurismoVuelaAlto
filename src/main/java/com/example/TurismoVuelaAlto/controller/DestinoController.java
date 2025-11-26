@@ -22,7 +22,7 @@ public class DestinoController {
     @Autowired
     private DestinoService destinoService;
 
-    // RF10.2 - Listar destinos
+    // Listar destinos
     @GetMapping
     public String listar(Model model) {
         List<DestinoDTO> destinos = destinoService.listarTodos();
@@ -30,14 +30,14 @@ public class DestinoController {
         return "destinos/lista";
     }
 
-    // RF10.1 - Mostrar formulario para registrar
+    // Mostrar formulario para registrar
     @GetMapping("/nuevo")
     public String mostrarFormulario(Model model) {
         model.addAttribute("destino", new DestinoDTO());
         return "destinos/form";
     }
 
-    // RF10.1 - Guardar destino
+    // Guardar destino
     @PostMapping("/guardar")
     public String guardar(@Valid @ModelAttribute("destino") DestinoDTO destino,
             BindingResult result,
@@ -54,7 +54,7 @@ public class DestinoController {
         return "redirect:/destinos";
     }
 
-    // RF10.3 - Mostrar formulario para editar
+    // Mostrar formulario para editar
     @GetMapping("/editar/{id}")
     public String mostrarFormularioEditar(@PathVariable Long id, Model model, RedirectAttributes redirectAttributes) {
         try {
@@ -70,7 +70,7 @@ public class DestinoController {
         return "redirect:/destinos";
     }
 
-    // RF10.3 - Actualizar destino
+    // Actualizar destino
     @PostMapping("/actualizar")
     public String actualizar(@Valid @ModelAttribute("destino") DestinoDTO destino,
             BindingResult result,
@@ -89,7 +89,7 @@ public class DestinoController {
         return "redirect:/destinos";
     }
 
-    // RF10.4 - Inactivar destino
+    // Inactivar destino
     @GetMapping("/inactivar/{id}")
     public String inactivar(@PathVariable Long id, RedirectAttributes redirectAttributes) {
         try {
@@ -117,7 +117,7 @@ public class DestinoController {
         return "redirect:/destinos";
     }
 
-    // RF10.9 - Buscar destinos
+    // Buscar destinos
     @GetMapping("/buscar")
     public String buscar(@RequestParam String nombre, Model model) {
         List<DestinoDTO> destinos = destinoService.buscarPorNombre(nombre);
@@ -125,7 +125,7 @@ public class DestinoController {
         return "destinos/lista";
     }
 
-    // RF10.10 - Ver detalle del destino con actividades
+    // Ver detalle del destino con actividades
     @GetMapping("/detalle/{id}")
     public String verDetalle(@PathVariable Long id, Model model, RedirectAttributes redirectAttributes) {
         try {
