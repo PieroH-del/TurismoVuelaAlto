@@ -5,11 +5,18 @@ import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.math.BigDecimal;
 
 @Entity
 @Table(name = "actividad")
+@Getter
+@Setter
+@NoArgsConstructor
+
 public class ActividadEntity {
 
     @Id
@@ -40,66 +47,4 @@ public class ActividadEntity {
     @NotNull(message = "Debe seleccionar un destino válido")
     private DestinoEntity destino;
 
-    // Constructores
-    public ActividadEntity() {
-    }
-
-    public ActividadEntity(Long idActividad, String nombreActividad, BigDecimal precioActividad,
-            Integer duracionActividad, String estadoActividad, DestinoEntity destino) {
-        this.idActividad = idActividad;
-        this.nombreActividad = nombreActividad;
-        this.precioActividad = precioActividad;
-        this.duracionActividad = duracionActividad;
-        this.estadoActividad = estadoActividad;
-        this.destino = destino;
-    }
-
-    // Getters y Setters
-    public Long getIdActividad() {
-        return idActividad;
-    }
-
-    public void setIdActividad(Long idActividad) {
-        this.idActividad = idActividad;
-    }
-
-    public String getNombreActividad() {
-        return nombreActividad;
-    }
-
-    public void setNombreActividad(String nombreActividad) {
-        this.nombreActividad = nombreActividad;
-    }
-
-    public BigDecimal getPrecioActividad() {
-        return precioActividad;
-    }
-
-    public void setPrecioActividad(BigDecimal precioActividad) {
-        this.precioActividad = precioActividad;
-    }
-
-    public Integer getDuracionActividad() {
-        return duracionActividad;
-    }
-
-    public void setDuracionActividad(Integer duracionActividad) {
-        this.duracionActividad = duracionActividad;
-    }
-
-    public String getEstadoActividad() {
-        return estadoActividad;
-    }
-
-    public void setEstadoActividad(String estadoActividad) {
-        this.estadoActividad = estadoActividad;
-    }
-
-    public DestinoEntity getDestino() {
-        return destino;
-    }
-
-    public void setDestino(DestinoEntity destino) {
-        this.destino = destino;
-    }
 }
