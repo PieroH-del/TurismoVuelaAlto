@@ -17,7 +17,6 @@ public class DestinoDTO {
     @NotBlank(message = "El nombre del destino es obligatorio")
     private String nombreDestino;
 
-    @NotBlank(message = "La descripción es obligatoria")
     private String descripcionDestino;
 
     @Pattern(regexp = "^[AI]$", message = "El estado debe ser A (Activo) o I (Inactivo)")

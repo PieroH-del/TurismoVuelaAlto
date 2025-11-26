@@ -21,19 +21,20 @@ public class ActividadDTO {
     @NotBlank(message = "El nombre de la actividad es obligatorio")
     private String nombreActividad;
 
-    @NotNull(message = "El precio es obligatorio")
-    @Min(value = 1, message = "El precio debe ser mayor a 0")
+    @NotNull(message = "El precio debe ser numérico")
+    @Min(value = 1, message = "El precio debe ser mayor que cero")
     private BigDecimal precio;
 
-    @NotNull(message = "La duración es obligatoria")
+    @NotNull(message = "La duración debe ser un número positivo")
     @Min(value = 1, message = "La duración debe ser al menos 1 hora")
     private Integer duracion;
 
     @Pattern(regexp = "^[AI]$", message = "El estado debe ser A (Activo) o I (Inactivo)")
     private String estado;
 
+    @NotNull(message = "No se permite una actividad sin destino")
     private Integer idDestino;
-    private String nombreDestino;
 
+    private String nombreDestino;
 
 }
